@@ -1,0 +1,45 @@
+PostBundle\Entity\Post:
+  type: entity
+  repositoryClass: PostBundle\Repository\PostRepository
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    created:
+      type: datetime
+      nullable: false
+    updated:
+      type: datetime
+      nullable: false
+    title:
+      type: string
+      nullable: false
+    seo:
+      type: json_array
+      nullable: true
+    votesRating:
+      type: integer
+      nullable: false
+    votesPositive:
+      type: integer
+      nullable: false
+    votesNegative:
+      type: integer
+      nullable: false
+    commentsTotal:
+      column: comments_total
+      type: integer
+      nullable: false
+    isDeleted:
+      column: is_deleted
+      type: boolean
+  manyToOne:
+    profile:
+      targetEntity: ProfileBundle\Entity\Profile
+  manyToMany:
+    tags:
+      targetEntity: TagBundle\Entity\Tag
+    attachments:
+      targetEntity: AttachmentBundle\Entity\Attachment

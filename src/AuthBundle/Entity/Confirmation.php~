@@ -1,0 +1,7 @@
+<?php
+namespace AuthBundle\Entity;
+
+class Confirmation
+{
+
+}

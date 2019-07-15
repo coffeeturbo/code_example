@@ -1,0 +1,20 @@
+profile_get_by_id:
+  path: '{id}/get-by-id'
+  defaults: { _controller: ProfileBundle:Read:getById }
+  methods: [ GET ]
+  requirements:
+    id: '\d+'
+
+profile_get_by_alias:
+  path: '{alias}/get-by-alias'
+  defaults: { _controller: ProfileBundle:Read:getByAlias }
+  methods: [ GET ]
+  requirements:
+    alias: '[\w\.]+'
+
+profile_check_alias:
+  path: '{alias}/check'
+  defaults: { _controller: ProfileBundle:Create:checkAlias }
+  methods: [ GET ]
+  requirements:
+    alias: '[\w\.]+'

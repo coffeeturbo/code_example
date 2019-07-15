@@ -1,0 +1,13 @@
+comment_get_by_post_id:
+  path: '{post_id}/get-by-post'
+  methods:  [ GET ]
+  defaults: { _controller: CommentBundle:Comment:getByPost }
+  requirements:
+    post_id: \d+
+
+comment_get_by_profile_id:
+  path: '{profile_id}/get-by-profile'
+  methods: [ GET ]
+  defaults: { _controller: CommentBundle:Comment:getByProfile }
+  requirements:
+    profile_id: '\d+'

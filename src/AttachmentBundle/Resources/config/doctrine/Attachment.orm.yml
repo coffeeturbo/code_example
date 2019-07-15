@@ -1,0 +1,26 @@
+AttachmentBundle\Entity\Attachment:
+  type: entity
+  repositoryClass: AttachmentBundle\Repository\AttachmentRepository
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    type:
+      type: smallint
+      nullable: false
+    content:
+      type: json
+      nullable: false
+    created:
+      type: datetime
+      nullable: false
+    updated:
+      type: datetime
+      nullable: false
+    position:
+      type: smallint
+      nullable: true
+      options:
+        default: 0

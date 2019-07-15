@@ -1,0 +1,7 @@
+<?php
+namespace SubscribeBundle\Entity;
+
+class Subscribe
+{
+
+}

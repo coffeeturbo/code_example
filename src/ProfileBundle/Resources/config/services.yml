@@ -1,0 +1,77 @@
+services:
+  profile.repository:
+    class: ProfileBundle\Repository\ProfileRepository
+    factory: ['@doctrine.orm.entity_manager', 'getRepository']
+    arguments:
+      - ProfileBundle\Entity\Profile
+
+  profile.service:
+    public: true
+    class: ProfileBundle\Service\ProfileService
+    calls:
+      - [ setContainer, ['@service_container'] ]
+    arguments: 
+      - '@profile.repository'
+      - '@auth.service'
+      - '@event_dispatcher'
+      - '%profile.limit%'
+
+  profile.service.strategy.avatar_strategy:
+    public: true
+    class: ProfileBundle\Service\Strategy\ProfileAvatarStrategy
+    calls:
+      - [ setImageService, ['@image.service']]
+    arguments:
+      - '%profile.avatar.absolute_path%'
+      - '%profile.avatar.web_path%'
+
+  profile.service.strategy.backdrop_strategy:
+    public: true
+    class: ProfileBundle\Service\Strategy\BackdropStrategy
+    calls:
+      - [ setImageService, ['@image.service']]
+    arguments:
+      - '%profile.backdrop.absolute_path%'
+      - '%profile.backdrop.web_path%'
+      - '%profile.backdrop.min_width%'
+      - '%profile.backdrop.min_height%'
+
+  profile.backdrop.service:
+    public: true
+    class: ProfileBundle\Service\BackdropService
+    arguments:
+      - '@image.service'
+      - '%profile.backdrop.presets%'
+      
+  profile.form.type:
+    class: ProfileBundle\Form\ProfileType
+    arguments:
+      - '%profile.min_age%'
+      - '%profile.max_age%'
+    tags: [{name: form.type}]
+
+  profile.form.backdrop_upload_type:
+    class: ProfileBundle\Form\BackdropUploadType
+    arguments:
+      - '%profile.backdrop.min_width%'
+      - '%profile.backdrop.max_width%'
+      - '%profile.backdrop.min_height%'
+      - '%profile.backdrop.max_height%'
+    tags: [{name: form.type}]
+
+  profile.form.avatar_upload_type:
+    class: ProfileBundle\Form\AvatarUploadType
+    arguments:
+      - '%profile.avatar.min_width%'
+      - '%profile.avatar.max_width%'
+      - '%profile.avatar.min_height%'
+      - '%profile.avatar.max_height%'
+      - '%profile.avatar.min_ratio%'
+      - '%profile.avatar.max_ratio%'
+    tags: [{name: form.type}]
+
+  oauth.registered.listener:
+    class: ProfileBundle\EventListener\OAuthRegisteredListner
+    arguments: ['@profile.service']
+    tags:
+      - { name: kernel.event_subscriber }

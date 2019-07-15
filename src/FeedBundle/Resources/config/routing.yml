@@ -1,0 +1,14 @@
+feed:
+  path: '/limit/{limit}'
+  methods: [ GET ]
+  defaults: { _controller: FeedBundle:Feed:feed }
+  requirements:
+    limit: \d+
+    cursor: \d+
+    dateFrom: "*"
+    dateTo: "*"
+    profile: \d+
+    sort: "id|rating|hot"
+    direction: ASC|DESC
+    tags: "*"
+    vote_type: "all|positive|negative"

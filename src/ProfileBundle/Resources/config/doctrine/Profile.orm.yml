@@ -1,0 +1,77 @@
+ProfileBundle\Entity\Profile:
+  type: entity
+  repositoryClass: ProfileBundle\Repository\ProfileRepository
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    created:
+      type: datetime
+      nullable: false
+    name:
+      type: string
+      nullable: false
+    alias:
+      type: string
+      nullable: true
+      unique: true
+    gender:
+      type: smallint
+      nullable: false
+    birthDate:
+      type: date
+      column: birth_date
+      nullable: true
+    verified:
+      type: boolean
+      nullable: false
+    avatar:
+      type: json_array
+      nullable: true
+    backdrop:
+      type: json_array
+      nullable: true
+    votesRating:
+      type: bigint
+      nullable: false
+      options:
+        default: 0
+    subscribersTotal:
+      column: subscribers_total
+      type: bigint
+      nullable: false
+      options:
+        default: 0
+  manyToOne:
+    account:
+      targetEntity: AccountBundle\Entity\Account
+      joinColumn:
+        name: account_id
+        referencedColumnName: id
+
+#    family_status:
+#      nullable: true
+#    interests:
+#      nullable: true
+#    education:
+#      nullable: true
+#    languages:
+#      nullable: true
+#    city:
+#      nullable: true
+#    contacts:
+#      nullable: true
+#    social_networks:
+#      nullable: true
+#    work:
+#      nullable: false
+#    education_places:
+#      nullable: false
+#    military_service:
+#      nullable: false
+#  oneToMany:
+#    cities:
+#      targetEntity: City
+#      mappedBy: region
